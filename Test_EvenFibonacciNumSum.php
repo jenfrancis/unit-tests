@@ -19,8 +19,9 @@ class Test_EvenFibonacciNumSum extends PHPUnit_Framework_TestCase
         $numParams = $refl->getNumberOfParameters();
         $this->assertEquals(1,$numParams);
         
-        // we are expecting it to return an interger
-        //$this->assertTrue( is_int( $obj->evenFibonacciNumSum()) );
+        // expect class to have limit parameter
+        $this->assertObjectHasAttribute( 'limit', $obj );
+        
         
     }
 }
@@ -30,6 +31,7 @@ class evenFibonaciNumSum{
     private $limit;
     
     function evenFibonacciNumSum( $limit = 4000000 ){
+        $this->limit = $limit;
         
     }
     
