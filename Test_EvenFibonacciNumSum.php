@@ -11,7 +11,7 @@ class Test_EvenFibonacciNumSum extends PHPUnit_Framework_TestCase
         
         $obj = new evenFibonaciNumSum();
         
-        // make sure method exists
+        // make sure methods exists
         $this->assertTrue( method_exists($obj,'evenFibonacciNumSum'), 'No method "evenFibonacciNumSum" found.' );
         
         // we expect it to take a limit parameter
@@ -25,12 +25,29 @@ class Test_EvenFibonacciNumSum extends PHPUnit_Framework_TestCase
         // we are expecting it to return an interger
         $this->assertTrue( is_int( $obj->evenFibonacciNumSum()), 'Method "evenFibonacciNumSum" is expected to return an integer.' );
         
+        // make sure generate sequence methods exists
+        $this->assertTrue( method_exists($obj,'generateFibonacciSeq'), 'No method "generateFibonacciSeq" found.' );
+        
+        // we are expecting it to return an array
+        $this->assertTrue( is_array( $obj->generateFibonacciSeq()), 'Method "generateFibonacciSeq" is expected to return an array.' );
+        
+        
+        // expect that fibanacci sequence does not exceed 4 million
+        
+        
     }
 }
 
 class evenFibonaciNumSum{
     
     private $limit;
+    
+    function generateFibonacciSeq( ){
+        $limit = $this->limit;
+        
+        return array();
+        
+    }
     
     function evenFibonacciNumSum( $limit = 4000000 ){
         $this->limit = $limit;
