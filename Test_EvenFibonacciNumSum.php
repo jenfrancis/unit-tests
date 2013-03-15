@@ -12,16 +12,18 @@ class Test_EvenFibonacciNumSum extends PHPUnit_Framework_TestCase
         $obj = new evenFibonaciNumSum();
         
         // make sure method exists
-        $this->assertTrue( method_exists($obj,'evenFibonacciNumSum'), 'No method "EvenFibonacciNumSum" found.' );
+        $this->assertTrue( method_exists($obj,'evenFibonacciNumSum'), 'No method "evenFibonacciNumSum" found.' );
         
         // we expect it to take a limit parameter
         $refl = new ReflectionMethod($obj, 'evenFibonacciNumSum');
         $numParams = $refl->getNumberOfParameters();
-        $this->assertEquals(1,$numParams);
+        $this->assertEquals(1,$numParams, 'Method "evenFibonacciNumSum" is expected to accept one parameter.');
         
         // expect class to have limit parameter
         $this->assertObjectHasAttribute( 'limit', $obj );
         
+        // we are expecting it to return an interger
+        $this->assertTrue( is_int( $obj->evenFibonacciNumSum()), 'Method "evenFibonacciNumSum" is expected to return an integer.' );
         
     }
 }
@@ -32,7 +34,7 @@ class evenFibonaciNumSum{
     
     function evenFibonacciNumSum( $limit = 4000000 ){
         $this->limit = $limit;
-        
+        return 0;
     }
     
 }
