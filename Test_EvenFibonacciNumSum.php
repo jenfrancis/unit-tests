@@ -7,7 +7,9 @@
 
 class Test_EvenFibonacciNumSum extends PHPUnit_Framework_TestCase
 {
-    function testEvenFibonacciNumSum(){
+    public function testEvenFibonacciNumSum(){
+        
+        $limit = 4000000;
         
         $obj = new evenFibonaciNumSum();
         
@@ -28,32 +30,103 @@ class Test_EvenFibonacciNumSum extends PHPUnit_Framework_TestCase
         // make sure generate sequence methods exists
         $this->assertTrue( method_exists($obj,'generateFibonacciSeq'), 'No method "generateFibonacciSeq" found.' );
         
+        // we expect it to take a limit parameter
+        $refl = new ReflectionMethod($obj, 'generateFibonacciSeq');
+        $numParams = $refl->getNumberOfParameters();
+        $this->assertEquals(1,$numParams, 'Method "generateFibonacciSeq" is expected to accept one parameter.');
+        
         // we are expecting it to return an array
-        $this->assertTrue( is_array( $obj->generateFibonacciSeq()), 'Method "generateFibonacciSeq" is expected to return an array.' );
+        $seq = $obj->generateFibonacciSeq( $limit );
+        $this->assertTrue( is_array( $seq ), 'Method "generateFibonacciSeq" is expected to return an array.' );
         
+        // expect that fibanacci sequence values to match fibanacci rules
+        $correctseq = false;
+        for( $i = count($seq)-1; $i >=3; $i-- )
+        {
+            $a = $seq[$i-2];
+            $b = $seq[$i-1];
+            $c = $seq[$i];
+            if( $a + $b != $c )
+            {
+                $correctseq = false;
+                break;
+            }
+            else
+                $correctseq = true;
+        }
+   
+        $this->assertTrue( $correctseq, 'Sequence is not a fibonacci sequenece.' );
         
-        // expect that fibanacci sequence does not exceed 4 million        
-        $this->assertLessThanOrEqual(4000000,array_sum( $obj->generateFibonacciSeq() ));
+        // expect that fibanacci sequence values does not exceed 4 million
+        $inlimit = false;
+        foreach($seq as $value)
+        {
+            if( $value > $limit )
+            {
+                $inlimit = false;
+                break;
+            }
+            else
+                $inlimit = true;
+        }
+        $this->assertTrue( $inlimit, 'Sequence contains values above the limit.' );
+        
+        // expect the sum of even numbers to be 4613732
+        $this->assertEquals(4613732, $obj->evenFibonacciNumSum(), '"evenFibonacciNumSum" does not return the correct result.');
         
     }
+    
+    
 }
 
-class evenFibonaciNumSum{
+class evenFibonaciNumSum
+{
     
-    private $limit;
+    public $limit;
     
-    function generateFibonacciSeq( ){
-        $limit = $this->limit;
-        
-        return array(4000000);
+    function generateFibonacciSeq( $limit )
+    {
+        if( empty($limit) ) $limit = 4000000;
+        $seq = array();
+
+        do{
+            
+            $a = ( count($seq) ) ? end($seq) : 0;
+            
+            $b = ( count($seq) > 1 ) ? prev($seq) : 1;
+            
+            $c = ($a + $b);
+               
+            // check it
+            if( $c > $limit )
+                break;
+            
+            $seq[] = $c;
+            
+        } while (1);
+
+        return $seq;
         
     }
     
-    function evenFibonacciNumSum( $limit = 4000000 ){
-        $this->limit = $limit;
-        return 0;
+    function evenFibonacciNumSum( $limit = 4000000 )
+    {
+
+        $seq = $this->generateFibonacciSeq($limit);
+
+        $even_seq = array();
+        
+        foreach($seq as $num)
+        {
+            if( !($num%2) ) $even_seq[] = $num;
+        }
+        return array_sum($even_seq);
     }
     
 }
-
+/*
+$test = new evenFibonaciNumSum();
+$result = $test->evenFibonacciNumSum();
+echo $result;
+*/
 ?>
