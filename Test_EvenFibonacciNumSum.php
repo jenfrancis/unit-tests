@@ -32,8 +32,8 @@ class Test_EvenFibonacciNumSum extends PHPUnit_Framework_TestCase
         $this->assertTrue( is_array( $obj->generateFibonacciSeq()), 'Method "generateFibonacciSeq" is expected to return an array.' );
         
         
-        // expect that fibanacci sequence does not exceed 4 million
-        
+        // expect that fibanacci sequence does not exceed 4 million        
+        $this->assertLessThanOrEqual(4000000,array_sum( $obj->generateFibonacciSeq() ));
         
     }
 }
@@ -45,7 +45,7 @@ class evenFibonaciNumSum{
     function generateFibonacciSeq( ){
         $limit = $this->limit;
         
-        return array();
+        return array(4000000);
         
     }
     
