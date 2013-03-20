@@ -58,11 +58,9 @@ class Test_EvenFibonacciNumSum extends PHPUnit_Framework_TestCase
     
     public function testGenFibLimit()
     {
-        
-        // expect that fibanacci sequence values to match fibanacci rules
-        $seq = $this->obj->generateFibonacciSeq( $this->limit );        
-        
         // expect that fibanacci sequence values does not exceed 4 million
+        $seq = $this->obj->generateFibonacciSeq( $this->limit );        
+           
         $inlimit = false;
         foreach($seq as $value)
         {
