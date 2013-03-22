@@ -6,7 +6,7 @@
 class LrgPrime
 {
     
-    public function getPrimeFactors()
+    public function getPrimeFactors( $number = 13195 )
     {
         return array();
     }
