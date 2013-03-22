@@ -8,7 +8,7 @@ class LrgPrime
     
     public function getPrimeFactors()
     {
-        
+        return array();
     }
 }
 

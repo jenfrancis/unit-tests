@@ -13,8 +13,11 @@ class Test_LrgPrime extends PHPUnit_Framework_TestCase
         $this->obj = new LrgPrime();
     }
     
-    public function testGetPrimeFactors(){
+    public function testGetPrimeFactors()
+    {
         $this->assertTrue( method_exists($this->obj, 'getPrimeFactors'), "Method 'getPrimeFactors' does not exsist.");
+        
+        $this->assertTrue( is_array($this->obj->getPrimeFactors()), "Method 'getPrimeFactors' does not return an array as expected.");
     }
     
 }
