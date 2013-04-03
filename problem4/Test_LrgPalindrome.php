@@ -22,13 +22,35 @@ class Test_LrgPalindrome extends PHPUnit_Framework_TestCase
         // returns an integer
         $this->assertTrue( is_array($this->obj->generatePalindromes(10,99)), "Method 'generatePalindromes' does not return an array as expected.");
         
-        // we expect it to take a two parameter
+        // we expect it to take a two parameters
         $refl = new ReflectionMethod($this->obj, 'generatePalindromes');
         $numParams = $refl->getNumberOfParameters();
         $this->assertEquals(2,$numParams, 'Method "generatePalindromes" is expected to accept two parameter.');
     }
     
+    /**
+     * @dataProvider provider
+     */
+    public function testIsPalindrome($result)
+    {
+        // method exists
+        $this->assertTrue( method_exists($this->obj, 'isPalindrome'), "Method 'isPalindrome' does not exsist.");
+        
+        // we expect it to take a one parameter
+        $refl = new ReflectionMethod($this->obj, 'isPalindrome');
+        $numParams = $refl->getNumberOfParameters();
+        $this->assertEquals(1,$numParams, 'Method "isPalindrome" is expected to accept one parameter.');
+        
+        //validates palidronic number
+        $this->assertTrue( $this->obj->isPalindrome($result), "Method 'isPalindrome' is not correctly validating palindromic numbers." );
+    }
     
+    public function provider()
+    {
+        return array(
+            array( 9009, array(10,99) )
+        );
+    }
     
 }
 ?>
