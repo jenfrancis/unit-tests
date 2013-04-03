@@ -26,9 +26,37 @@ class LrgPalindrome
     
     function generatePalindromes($start, $end)
     {
-        return array();
+        // loop through all numbers in the range
+        // multiple it will all numbers greater than it
+        
+        $palidromes = array();
+        
+        for( $i = $start; $i <= $end; $i++ )
+        {
+            for( $j = $i; $j <= $end; $j++ )
+            {
+                if( $this->isPalindrome($i * $j) )
+                {
+                    $palidromes[] = ($i * $j);
+                }
+            }
+        }
+        return $palidromes;
+    }
+    
+    function lrgestPalindrome($palidromes)
+    {
+        $result = 0;
+        foreach( $palidromes as $num ){
+            if( $num > $result ) $result = $num;
+        }
+        return $result;
     }
 
 }
-
+/*
+$t = new LrgPalindrome();
+$result = $t->generatePalindromes(100,999);
+echo $t->lrgestPalindrome($result);
+*/
 ?>

@@ -45,10 +45,29 @@ class Test_LrgPalindrome extends PHPUnit_Framework_TestCase
         $this->assertTrue( $this->obj->isPalindrome($result), "Method 'isPalindrome' is not correctly validating palindromic numbers." );
     }
     
+    /**
+     * @dataProvider provider
+     */
+    public function testLrgPalidrome($result, $range)
+    {
+        // method exists
+        $this->assertTrue( method_exists($this->obj, 'lrgestPalindrome'), "Method 'lrgestPalindrome' does not exsist.");
+        
+        // we expect it to take a one parameter
+        $refl = new ReflectionMethod($this->obj, 'lrgestPalindrome');
+        $numParams = $refl->getNumberOfParameters();
+        $this->assertEquals(1,$numParams, 'Method "lrgestPalindrome" is expected to accept one parameter.');
+        
+        // validate is returns the expected result
+        $palidromes = $this->obj->generatePalindromes($range[0],$range[1]);        
+        $this->assertEquals($result, $this->obj->lrgestPalindrome($palidromes), '"lrgestPalindrome" does not return the correct result.');
+    }
+    
     public function provider()
     {
         return array(
-            array( 9009, array(10,99) )
+            array( 9009, array(10,99) ),
+            array( 906609, array(100,999) ),
         );
     }
     
